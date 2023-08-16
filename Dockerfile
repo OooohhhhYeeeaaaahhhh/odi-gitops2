@@ -5,3 +5,5 @@ FROM ubuntu
 #CMD [“echo”,”Image created”] 
 
 COPY /data .
+
+ls -la
