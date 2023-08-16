@@ -6,4 +6,4 @@ FROM ubuntu
 
 COPY /data .
 
-ls -la
+CMD ["/bin/sh", "ls -la /data"]
