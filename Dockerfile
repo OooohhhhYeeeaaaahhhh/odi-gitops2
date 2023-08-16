@@ -5,6 +5,6 @@ FROM ubuntu
 #CMD [“echo”,”Image created”] 
 
 COPY /data .
-RUN ls -la /data
+RUN ls /data
 
 #CMD ["/bin/sh", "ls -la /data"]
