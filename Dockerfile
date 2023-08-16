@@ -7,4 +7,4 @@ FROM ubuntu
 COPY /data .
 RUN ls 
 
-#CMD ["/bin/sh", "ls -la /data"]
+#CMD ["/bin/sh", "ls /data"]
