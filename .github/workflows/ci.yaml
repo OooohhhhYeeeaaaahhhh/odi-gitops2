@@ -63,7 +63,11 @@ jobs:
         with:
           push: true
           #tags: ballin24x7/odi-gitops2:latest
+          # tags: |
+          #   ${{ env.IMAGE_REGISTRY }}/${{ env.PRODUCT }}/${{env.IMAGE_NAME}}:latest
+          #   ${{ env.IMAGE_REGISTRY }}/${{ env.PRODUCT }}/${{env.IMAGE_NAME}}:${{ env.DATE }}${{ github.RUN_NUMBER }}
+          #   ${{ env.IMAGE_REGISTRY }}/${{ env.PRODUCT }}/${{env.IMAGE_NAME}}:${{ env.GIT_HASH }}
           tags: |
-            ${{ env.IMAGE_REGISTRY }}/${{ env.PRODUCT }}/${{env.IMAGE_NAME}}:latest
-            ${{ env.IMAGE_REGISTRY }}/${{ env.PRODUCT }}/${{env.IMAGE_NAME}}:${{ env.DATE }}${{ github.RUN_NUMBER }}
-            ${{ env.IMAGE_REGISTRY }}/${{ env.PRODUCT }}/${{env.IMAGE_NAME}}:${{ env.GIT_HASH }}
+            ${{ env.IMAGE_REGISTRY }}/${{env.IMAGE_NAME}}:latest
+            ${{ env.IMAGE_REGISTRY }}/${{env.IMAGE_NAME}}:${{ env.DATE }}${{ github.RUN_NUMBER }}
+            ${{ env.IMAGE_REGISTRY }}/${{env.IMAGE_NAME}}:${{ env.GIT_HASH }}
