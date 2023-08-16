@@ -4,6 +4,12 @@ on:
   push:
     branches:
       - 'main'
+      
+  workflow_dispatch:
+    inputs:
+      deploy:
+        type: boolean
+        description: Deploy to Dev
 
 jobs:
   docker:
