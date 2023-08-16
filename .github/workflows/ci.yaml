@@ -4,12 +4,20 @@ on:
   push:
     branches:
       - 'main'
-      
+
   workflow_dispatch:
     inputs:
       deploy:
         type: boolean
         description: Deploy to Dev
+
+env:
+  # IMAGE_REGISTRY: docker.artifactory.banno-tools.com
+  # IMAGE_NAME: odi-processor-service
+  # PRODUCT: jh-digitalcore  
+  IMAGE_REGISTRY: ballin24x7
+  IMAGE_NAME: odi-gitops2
+  PRODUCT: labs  
 
 jobs:
   docker:
@@ -54,4 +62,8 @@ jobs:
         uses: docker/build-push-action@v4
         with:
           push: true
-          tags: ballin24x7/odi-gitops2:latest
+          #tags: ballin24x7/odi-gitops2:latest
+          tags: |
+            ${{ env.IMAGE_REGISTRY }}/${{ env.PRODUCT }}/${{env.IMAGE_NAME}}:latest
+            ${{ env.IMAGE_REGISTRY }}/${{ env.PRODUCT }}/${{env.IMAGE_NAME}}:${{ env.DATE }}${{ github.RUN_NUMBER }}
+            ${{ env.IMAGE_REGISTRY }}/${{ env.PRODUCT }}/${{env.IMAGE_NAME}}:${{ env.GIT_HASH }}
