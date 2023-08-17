@@ -1,0 +1,76 @@
+name: qa-signoff
+
+on:
+  push:
+    branches:
+      - main
+      - master
+  pull_request:
+    branches:
+      - main
+      - master
+  workflow_dispatch:
+    inputs:
+      deploy:
+        type: boolean
+        description: Update config
+
+
+env:
+  # IMAGE_REGISTRY: docker.artifactory.banno-tools.com
+  # IMAGE_NAME: odi-processor-service
+  # PRODUCT: jh-digitalcore  
+  IMAGE_REGISTRY: ballin24x7
+  IMAGE_NAME: odi-gitops2
+  PRODUCT: labs
+  DOCKER_FILE:  devops/scripts/Release.Dockerfile
+  PROJECT_FILE: src/WebApplication2.csproj
+
+jobs:
+  docker:
+    runs-on: ubuntu-latest
+    steps:
+
+      - uses: actions/checkout@v3
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v2
+        with:
+          dotnet-version: 6.0.x
+
+      - name: Setting variables for Docker Image Tag
+        run: |
+          echo "DATE=$(date '+%Y%m%d')" >> $GITHUB_ENV
+          echo "GIT_HASH=`echo ${GITHUB_SHA} | cut -c1-7`" >> $GITHUB_ENV
+
+      - name: Display Github Runner Agent Environment variables
+        run: |
+          env | sort
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+
+      - name: Login to Docker Hub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Publish processor
+        run: dotnet publish ${{env.PROJECT_FILE}} -c Release --no-self-contained --runtime linux-musl-x64 -o src/out
+
+      - name: Build and push
+        id: docker_build
+        uses: docker/build-push-action@v3
+        with:
+          file: ${{ env.DOCKER_FILE }}
+          context: ./src/out
+          provenance: false
+          push: true
+          # tags: |
+            # ${{ env.IMAGE_REGISTRY }}/${{ env.PRODUCT }}/${{env.IMAGE_NAME}}:latest
+            # ${{ env.IMAGE_REGISTRY }}/${{ env.PRODUCT }}/${{env.IMAGE_NAME}}:${{ env.DATE }}${{ github.RUN_NUMBER }}
+            # ${{ env.IMAGE_REGISTRY }}/${{ env.PRODUCT }}/${{env.IMAGE_NAME}}:${{ env.GIT_HASH }}      
+          tags: |
+            ${{ env.IMAGE_REGISTRY }}/${{env.IMAGE_NAME}}:latest
+            ${{ env.IMAGE_REGISTRY }}/${{env.IMAGE_NAME}}:${{ env.DATE }}${{ github.RUN_NUMBER }}
+            ${{ env.IMAGE_REGISTRY }}/${{env.IMAGE_NAME}}:${{ env.GIT_HASH }}                  
