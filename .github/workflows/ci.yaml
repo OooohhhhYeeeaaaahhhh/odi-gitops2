@@ -1,9 +1,9 @@
 name: ci
 
-on:
-  push:
-    branches:
-      - 'main'
+# on:
+#   push:
+#     branches:
+#       - 'main'
 
   workflow_dispatch:
     inputs:
@@ -71,3 +71,9 @@ jobs:
             ${{ env.IMAGE_REGISTRY }}/${{env.IMAGE_NAME}}:latest
             ${{ env.IMAGE_REGISTRY }}/${{env.IMAGE_NAME}}:${{ env.DATE }}${{ github.RUN_NUMBER }}
             ${{ env.IMAGE_REGISTRY }}/${{env.IMAGE_NAME}}:${{ env.GIT_HASH }}
+
+      # - name: Update Values Yaml
+      #   id: imgupd
+      #   uses: mikefarah/yq@master
+      #   with:
+      #    cmd: yq eval '.deployment.containers.tag = "${{ env.fullVersion }}"' -i ${{env.HELMCHART_PATH}}/values.yaml

@@ -1,0 +1,37 @@
+name: dev-deploy
+
+on:
+  push:
+    branches:
+      - main
+      - master
+  pull_request:
+    branches:
+      - main
+      - master
+  workflow_dispatch:
+    inputs:
+      deploy:
+        type: boolean
+        description: Deploy to Dev
+
+
+env:
+  # IMAGE_REGISTRY: docker.artifactory.banno-tools.com
+  # IMAGE_NAME: odi-processor-service
+  # PRODUCT: jh-digitalcore  
+  IMAGE_REGISTRY: ballin24x7
+  IMAGE_NAME: odi-gitops2
+  PRODUCT: labs
+  DOCKER_FILE:  devops/scripts/Dev.Dockerfile
+
+jobs:
+  docker:
+    runs-on: ubuntu-latest
+    steps:
+
+      - uses: actions/checkout@v3
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v2
+        with:
+          dotnet-version: 6.0.x
