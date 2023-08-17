@@ -24,7 +24,7 @@ env:
   IMAGE_NAME: odi-gitops2
   PRODUCT: labs
   DOCKER_FILE:  devops/scripts/Dev.Dockerfile
-  PROJECT_FILE: src/odi-processor-service/src/ODI.Processor.csproj
+  PROJECT_FILE: src/WebApplication2.csproj
 
 jobs:
   docker:
