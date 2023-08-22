@@ -1,4 +1,5 @@
-FROM docker.pkg.github.com/ballin24x7/odi-gitops2:latest
+#FROM docker.pkg.github.com/ballin24x7/odi-gitops2:latest
+FROM ghcr.io/ballin24x7/odi-gitops2:latest
 
 WORKDIR /app
 EXPOSE 80
