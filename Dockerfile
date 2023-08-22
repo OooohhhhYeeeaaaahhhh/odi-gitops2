@@ -4,7 +4,9 @@ FROM ubuntu
 #RUN apt-get install –y nginx 
 #CMD [“echo”,”Image created”] 
 
-COPY /data .
+WORKDIR /app
+
+COPY /data/*.* ./data
 RUN ls 
 
 #CMD ["/bin/sh", "ls /data"]
