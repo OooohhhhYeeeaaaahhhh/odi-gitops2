@@ -76,5 +76,12 @@ jobs:
             ${{ env.IMAGE_REGISTRY }}/${{env.IMAGE_NAME}}:gold
             ${{ env.IMAGE_REGISTRY }}/${{env.IMAGE_NAME}}:${{ env.DATE }}${{ github.RUN_NUMBER }}
             ${{ env.IMAGE_REGISTRY }}/${{env.IMAGE_NAME}}:${{ env.GIT_HASH }}   
-  outputs:
-    ${{ env.GIT_HASH }}            
+    outputs:
+      DOCKERFILE_HASH: ${{ env.GIT_HASH }}
+  output-job:
+    runs-on: ubuntu-latest
+    needs: docker
+    steps:
+      - env:
+          OUTPUT1: ${{needs.docker.outputs.DOCKERFILE_HASH}}   
+        run: echo "$OUTPUT1"      
