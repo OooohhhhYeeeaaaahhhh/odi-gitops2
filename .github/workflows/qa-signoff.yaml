@@ -10,10 +10,10 @@ on:
   #     - main
   #     - master
   workflow_dispatch:
-    inputs:
-      deploy:
-        type: boolean
-        description: Update config
+    # inputs:
+    #   deploy:
+    #     type: boolean
+    #     description: Update config
 
 
 env:
