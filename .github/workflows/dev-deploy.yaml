@@ -23,7 +23,7 @@ env:
   IMAGE_REGISTRY: ballin24x7
   IMAGE_NAME: odi-gitops2
   PRODUCT: labs
-  DOCKER_FILE:  devops/scripts/Dev.Dockerfile
+  DOCKER_FILE:  devops/scripts/Artifactory.Dockerfile
   PROJECT_FILE: src/WebApplication2.csproj
 
 jobs:
