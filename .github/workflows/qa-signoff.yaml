@@ -88,6 +88,7 @@ jobs:
         run: echo "$OUTPUT1" 
   update-repo:
     runs-on: ubuntu-latest
+    needs: docker
     steps:
       - name: Checkout repo
         uses: actions/checkout@v3
