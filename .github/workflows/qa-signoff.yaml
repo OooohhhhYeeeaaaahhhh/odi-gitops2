@@ -99,7 +99,8 @@ jobs:
         id: setimagetag
         shell: pwsh
         run: |
-          Get-Content -Path ${{ env.DOCKER_FILE_TEMPLATE }}
+          #Get-Content -Path ${{ env.DOCKER_FILE_TEMPLATE }}
+          (Get-Content -Path ${{ env.DOCKER_FILE_TEMPLATE }}).Replace(":<image-tag>"",":123abc")
 
       # - name: Overwrite file
       #   uses: "DamianReeves/write-file-action@master"
