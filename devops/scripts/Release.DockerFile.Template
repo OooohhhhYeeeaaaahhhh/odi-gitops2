@@ -1,0 +1,6 @@
+FROM docker.io/ballin24x7/odi-gitops2:<image-tag>
+
+WORKDIR /app
+EXPOSE 80
+COPY . .
+ENTRYPOINT ["dotnet", "./JackHenry.Enterprise.Odi.Processor.dll"]
