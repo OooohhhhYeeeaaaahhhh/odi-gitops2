@@ -104,6 +104,10 @@ jobs:
           # $Data = Get-Content -Path ${{ env.DOCKER_FILE_TEMPLATE }}
           # $Data.Replace(":<image-tag>",":123abc")
 
+      - name: Create Pull Request
+        id: cpr
+        uses: peter-evans/create-pull-request@v4
+
       # - name: Overwrite file
       #   uses: "DamianReeves/write-file-action@master"
       #   with:
