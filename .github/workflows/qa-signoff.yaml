@@ -101,6 +101,8 @@ jobs:
         run: |
           #Get-Content -Path ${{ env.DOCKER_FILE_TEMPLATE }}
           (Get-Content -Path ${{ env.DOCKER_FILE_TEMPLATE }}).Replace(":<image-tag>",":123abc") | Set-Content -Path ${{ env.DOCKER_FILE }}
+          write-output ${{ env.DOCKER_FILE }}
+          Get-Content -Path ${{ env.DOCKER_FILE }}
 
       # - name: Create Pull Request
       #   id: cpr
