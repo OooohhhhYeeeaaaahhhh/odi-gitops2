@@ -122,7 +122,7 @@ jobs:
           delete-branch: true
           title: '[AUTOMATION]: Image update for ${{ env.PR_BRANCH_NAME }}'
           #body: 'Change image at ${{ env.YAML_IMAGE_PATH}} in ${{ env.YAML_FILE_PATH }} to ${{ env.NEW_IMAGE_TAG }}'
-          body: Update image tag in file: ${{ env.DOCKER_FILE }}
+          body: 'Update image tag in file: ${{ env.DOCKER_FILE }}'
 
       # - name: Create Pull Request
       #   id: cpr
