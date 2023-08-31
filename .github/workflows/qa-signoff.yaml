@@ -27,6 +27,8 @@ env:
   PROJECT_FILE: src/WebApplication2.csproj
   GIT_HASH:
   DOCKER_FILE_TEMPLATE:  devops/scripts/Release.Dockerfile.Template
+  PULL_REQUEST_LABELS: 'automation,odi-processor'
+  PR_BRANCH_NAME: test
 
 jobs:
   docker:
@@ -103,6 +105,24 @@ jobs:
           (Get-Content -Path ${{ env.DOCKER_FILE_TEMPLATE }}).Replace(":<image-tag>",":123abc") | Set-Content -Path ${{ env.DOCKER_FILE }}
           write-output ${{ env.DOCKER_FILE }}
           Get-Content -Path ${{ env.DOCKER_FILE }}
+
+      - name: Create Pull Request
+        id: cpr
+        uses: peter-evans/create-pull-request@v4
+        with:
+          #token: ${{ steps.cross-repo-creds.outputs.token }}
+          #path: k8s-apps
+          commit-message: Automated version update
+          committer: GitHub <noreply@github.com>
+          author: GitHub Actions <noreply@github.com>
+          assignees: ${{ github.actor }}
+          labels: ${{ env.PULL_REQUEST_LABELS }}
+          branch: autoimgupdate-${{ env.PR_BRANCH_NAME }}
+          base: main
+          delete-branch: true
+          title: '[AUTOMATION]: Image update for ${{ env.PR_BRANCH_NAME }}'
+          #body: 'Change image at ${{ env.YAML_IMAGE_PATH}} in ${{ env.YAML_FILE_PATH }} to ${{ env.NEW_IMAGE_TAG }}'
+          body: Update image tag in file: ${{ env.DOCKER_FILE }}
 
       # - name: Create Pull Request
       #   id: cpr
