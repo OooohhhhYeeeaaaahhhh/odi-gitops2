@@ -102,9 +102,9 @@ jobs:
           #Get-Content -Path ${{ env.DOCKER_FILE_TEMPLATE }}
           (Get-Content -Path ${{ env.DOCKER_FILE_TEMPLATE }}).Replace(":<image-tag>",":123abc") | Set-Content -Path ${{ env.DOCKER_FILE }}
 
-      - name: Create Pull Request
-        id: cpr
-        uses: peter-evans/create-pull-request@v4
+      # - name: Create Pull Request
+      #   id: cpr
+      #   uses: peter-evans/create-pull-request@v4
 
       # - name: Overwrite file
       #   uses: "DamianReeves/write-file-action@master"
